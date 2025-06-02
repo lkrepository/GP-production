@@ -1,0 +1,72 @@
+# 🛢️ Proyecto de Análisis de Producción de Gas y Petróleo por Provincia
+
+## 👨‍💼 Instrucciones del Jefe de Proyecto
+
+### 🧠 Contexto
+El Ministerio de Energía requiere un análisis integral de la producción de gas y petróleo en Argentina a nivel provincial, desde 2009 hasta la fecha. El objetivo es identificar patrones, variaciones y oportunidades de mejora a través de datos históricos.
+
+Contamos con dos tablas principales:
+
+- `produccion_petroleo`  
+  Ejemplo de estructura:
+
+- `produccion_gas`  
+(Formato similar, con campo `produccion_gas_promedio_dia_m3`)
+
+---
+
+## ✅ Tareas Asignadas
+
+### 1. 🔍 Exploración y Preparación de Datos
+- [#] Revisión inicial de ambas tablas (`produccion_petroleo`, `produccion_gas`)
+- [#] Detección de valores faltantes, duplicados o inconsistencias en nombres de provincias
+- [#] Identificación de períodos o provincias faltantes en una u otra tabla
+- [#] Creación de una tabla unificada por provincia, mes y año con:
+- Producción de gas promedio diaria
+- Producción de petróleo promedio diaria
+
+---
+- [ ] Producción total anual por provincia y por recurso
+### 2. 📊 Análisis Exploratorio de Datos (EDA)
+- [ ] Análisis de tendencia general de producción (mensual y anual) de ambos recursos
+- [ ] Provincias con mayor producción promedio anual de gas y petróleo
+- [#] Provincias con mayor variación interanual
+- [# ] Correlación entre la producción de gas y petróleo por provincia
+
+---
+
+### 3. 📈 KPIs y Métricas Clave
+
+- [ ] Participación porcentual de cada provincia en la producción nacional
+- [ ] Máximos y mínimos históricos de producción diaria promedio por provincia
+
+---
+
+### 4. 📉 Visualizaciones en Power BI o Tableau
+- [ ] Gráfico de líneas: producción mensual total (gas y petróleo)
+- [ ] Mapa de Argentina: producción acumulada por provincia
+- [ ] Barras comparativas: producción total anual por provincia
+- [ ] Dashboard: indicadores clave (top 3 provincias productoras, evolución, etc.)
+
+---
+
+### 5. 🚨 Análisis de Eventos o Anomalías
+- [ ] Identificación de picos o caídas abruptas en la producción
+- [ ] Investigación de posibles causas (crisis económicas, huelgas, inversiones, etc.)
+- [ ] Cambios en el ranking de provincias a lo largo del tiempo
+
+---
+
+## 📦 Entregables
+1. 🗃️ Script SQL para limpieza y unificación de datos
+2. 📓 Cuaderno de Python (Jupyter Notebook) con análisis EDA
+3. 📊 Dashboard interactivo (Power BI o Tableau)
+4. 📄 Informe o presentación (5-10 diapositivas) con conclusiones y recomendaciones
+
+---
+
+## 🧪 Hipótesis Opcional (para análisis dirigido)
+> **"La provincia de Neuquén ha superado a Chubut como principal productora de petróleo en los últimos 5 años."**
+
+---
+
