@@ -5,56 +5,74 @@ FROM
     gasp;
 
 -- comprobation of null values 
-SELECT * FROM
-gasproduction
+SELECT
+	*
+FROM
+	gasp
 WHERE
-    anio is NULL OR mes is NULL or provincia is null or produccion_petroleo_promedio_dia_m3 is null
+    anio is NULL OR mes is NULL or provincia is null or produccion_gas is null
 
 --CHECKING FOR missing/duplicate/inconsistent values
     --initial revision of both tables
     SELECT
         COUNT(*) value_counts
     FROM
-        gasproduction
+        gasp
     UNION ALL
     SELECT
         COUNT(*)
     FROM
-        petroleumproduction
+        petrp
 
-    -- check if there are duplicate values
+-- comprobation of null values 
+SELECT
+	*
+FROM
+	gasp
+WHERE
+	anio is NULL OR mes is NULL or provincia is null or produccion_gas is null
+---
+SELECT
+	*
+FROM
+	petrp
+WHERE
+    anio is NULL OR mes is NULL or provincia is null or produccion_gas is null
+
+-- check if there are duplicate values
     SELECT DISTINCT
         COUNT(*) value_counts
     FROM
-        gasproduction
+        gasp
     UNION ALL
+
     SELECT DISTINCT
         COUNT(*)
     FROM
-        petroleumproduction
+        petrp
 
     -- Check for name of provincias
     SELECT DISTINCT provincia as provincia_unique
     FROM
-        gasproduction;
+        gasp;
 
     SELECT DISTINCT provincia as provincia_unique
     FROM
-        petroleumproduction;
+        petrp;
 
--- Calculo produccion anual por provincia 
+-- Anual Production of Gas (in certain year)
 WITH anualprod_gas AS (
     SELECT
-    anio, provincia, SUM(produccion_petroleo_promedio_dia_m3) prod_total
+    anio, provincia, SUM(produccion_gas) prod_total
     FROM
-        gasproduction
+        gasp
     GROUP BY
         provincia, anio
 ), anualprod_petroleum AS (
     SELECT
-    anio, provincia, SUM(produccion_petroleo_promedio_dia_m3) prod_total
+    anio, provincia, SUM(produccion_petroleo) prod_total
     FROM
-        petroleumproduction
+        petrp
     GROUP BY
         provincia, anio
 )
@@ -69,10 +87,39 @@ WHERE
     ag.anio = 2013
 
 SELECT
-    anio, sum(produccion_petroleo_promedio_dia_m3)
+    anio, sum(produccion_petroleo)
 FROM
-    petroleumproduction
+    petrp
 GROUP BY
     provincia, anio
 HAVING
     provincia = 'San Juan'
+
+
+--Correlation (example year)
+
+WITH anualprod_gas AS (
+    SELECT
+    anio, provincia, SUM(produccion_gas) prod_total_gas
+    FROM
+        gasp
+    GROUP BY
+        provincia, anio
+), anualprod_petroleum AS (
+    SELECT
+    anio, provincia, SUM(produccion_petroleo) prod_total_oil
+    FROM
+        petrp
+    GROUP BY
+        provincia, anio
+)
+SELECT
+	provincia, corr(prod_total_gas,prod_total_oil) Correlation
+FROM
+    anualprod_gas ag
+JOIN
+    anualprod_petroleum ap
+ON
+    ag.provincia = ap.provincia
+WHERE
+    ag.anio = 2013
